@@ -24,7 +24,7 @@ export default function PriceTrackingPage() {
         return;
       }
 
-      const response = await fetch(`${getApiUrl()}/api/price-tracking?page=${page}&limit=20`, {
+      const response = await fetch(`${getApiUrl()}/api/v1/price-tracking?page=${page}&limit=20`, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
 
@@ -42,7 +42,7 @@ export default function PriceTrackingPage() {
     try {
       const token = localStorage.getItem('token');
       
-      await fetch(`${getApiUrl()}/api/price-tracking/${alertId}`, {
+      await fetch(`${getApiUrl()}/api/v1/price-tracking/${alertId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` },
       });

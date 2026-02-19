@@ -35,7 +35,7 @@ function PriceHistoryContent() {
 
     try {
       const response = await fetch(
-        `${getApiUrl()}/api/price-history/${productId}?marketplace=${marketplace}&days=${days}`
+        `${getApiUrl()}/api/v1/price-history/${productId}?marketplace=${marketplace}&days=${days}`
       );
 
       if (response.ok) {

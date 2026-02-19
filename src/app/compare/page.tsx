@@ -34,7 +34,7 @@ export default function ComparePage() {
       setProducts(productsData);
 
       // Получаем сравнительные метрики с бэкенда
-      const response = await fetch(`${getApiUrl()}/api/compare`, {
+      const response = await fetch(`${getApiUrl()}/api/v1/compare`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ products: productsData }),

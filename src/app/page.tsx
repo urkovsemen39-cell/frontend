@@ -26,7 +26,7 @@ export default function Home() {
   const loadPopularQueries = async () => {
     try {
       const apiUrl = getApiUrl();
-      const response = await fetch(`${apiUrl}/api/analytics/popular-queries?limit=5`);
+      const response = await fetch(`${apiUrl}/api/v1/analytics/popular-queries?limit=5`);
       if (response.ok) {
         const data = await response.json();
         setSuggestions(data.queries || []);
@@ -64,7 +64,7 @@ export default function Home() {
         headers['Authorization'] = `Bearer ${token}`;
       }
 
-      const response = await fetch(`${apiUrl}/api/search?${params}`, { headers });
+      const response = await fetch(`${apiUrl}/api/v1/search?${params}`, { headers });
 
       if (!response.ok) {
         throw new Error('Ошибка поиска');

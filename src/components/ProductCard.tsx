@@ -25,7 +25,7 @@ export default function ProductCard({ product, onCompareToggle, isComparing }: P
     if (!token) return;
 
     try {
-      const response = await fetch(`${getApiUrl()}/api/favorites/check/${product.id}`, {
+      const response = await fetch(`${getApiUrl()}/api/v1/favorites/check/${product.id}`, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       const data = await response.json();
@@ -45,13 +45,13 @@ export default function ProductCard({ product, onCompareToggle, isComparing }: P
     setLoading(true);
     try {
       if (isFavorite) {
-        await fetch(`${getApiUrl()}/api/favorites/${product.id}`, {
+        await fetch(`${getApiUrl()}/api/v1/favorites/${product.id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` },
         });
         setIsFavorite(false);
       } else {
-        await fetch(`${getApiUrl()}/api/favorites`, {
+        await fetch(`${getApiUrl()}/api/v1/favorites`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -77,7 +77,7 @@ export default function ProductCard({ product, onCompareToggle, isComparing }: P
         headers['Authorization'] = `Bearer ${token}`;
       }
 
-      await fetch(`${getApiUrl()}/api/analytics/click`, {
+      await fetch(`${getApiUrl()}/api/v1/analytics/click`, {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -109,7 +109,7 @@ export default function ProductCard({ product, onCompareToggle, isComparing }: P
 
     setLoading(true);
     try {
-      const response = await fetch(`${getApiUrl()}/api/price-tracking`, {
+      const response = await fetch(`${getApiUrl()}/api/v1/price-tracking`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
