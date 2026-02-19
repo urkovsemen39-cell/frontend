@@ -13,6 +13,27 @@ export default function OwnerModeActivator() {
   const [isActive, setIsActive] = useState(false);
   const [keyPresses, setKeyPresses] = useState<number[]>([]);
 
+  // Проверка существующей сессии при монтировании
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const savedSession = localStorage.getItem('owner_session');
+    const savedExpiry = localStorage.getItem('owner_session_expiry');
+
+    if (savedSession && savedExpiry) {
+      const expiry = new Date(savedExpiry);
+      if (expiry > new Date()) {
+        // Сессия активна - автоматически открываем панель
+        setIsActive(true);
+      } else {
+        // Сессия истекла - очищаем
+        localStorage.removeItem('owner_session');
+        localStorage.removeItem('owner_session_expiry');
+      }
+    }
+  }, []);
+
+  // Слушатель комбинации клавиш
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
@@ -52,6 +73,32 @@ export default function OwnerModeActivator() {
       return () => clearTimeout(timeout);
     }
   }, [keyPresses]);
+
+  // Синхронизация между вкладками через storage event
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'owner_session') {
+        if (e.newValue) {
+          // Сессия создана в другой вкладке - открываем панель
+          const savedExpiry = localStorage.getItem('owner_session_expiry');
+          if (savedExpiry) {
+            const expiry = new Date(savedExpiry);
+            if (expiry > new Date()) {
+              setIsActive(true);
+            }
+          }
+        } else {
+          // Сессия удалена в другой вкладке - закрываем панель
+          setIsActive(false);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   if (!isActive) {
     return null;

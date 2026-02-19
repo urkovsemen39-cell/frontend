@@ -92,6 +92,11 @@ export default function OwnerPanel({ onClose }: OwnerPanelProps) {
     onClose();
   };
 
+  const handleClose = () => {
+    // Просто закрываем панель без удаления сессии
+    onClose();
+  };
+
   const getTimeRemaining = () => {
     if (!expiresAt) return '';
     const now = new Date();
@@ -132,14 +137,23 @@ export default function OwnerPanel({ onClose }: OwnerPanelProps) {
             <button
               onClick={() => setIsMinimized(true)}
               className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              title="Minimize"
             >
               <Minimize2 className="w-5 h-5" />
             </button>
             <button
-              onClick={handleLogout}
+              onClick={handleClose}
               className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              title="Close (session remains active)"
             >
               <X className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleLogout}
+              className="px-3 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-lg transition-colors text-sm"
+              title="Logout and end session"
+            >
+              Logout
             </button>
           </div>
         </div>
