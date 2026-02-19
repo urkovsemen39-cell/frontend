@@ -59,36 +59,44 @@ export default function OwnerLogs({ sessionId }: { sessionId: string }) {
 
       <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
         <div className="max-h-[600px] overflow-y-auto">
-          <table className="w-full">
-            <thead className="bg-gray-900 sticky top-0">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">Time</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">Action</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">User</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">IP</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-700">
-              {logs.map((log) => (
-                <tr key={log.id} className="hover:bg-gray-700/50">
-                  <td className="px-6 py-4 text-sm text-gray-400">
-                    {new Date(log.created_at).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 font-mono text-sm">{log.action}</td>
-                  <td className="px-6 py-4 text-sm">User #{log.user_id}</td>
-                  <td className="px-6 py-4 text-sm font-mono">{log.ip_address}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2 py-1 rounded text-xs ${
-                      log.success ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-                    }`}>
-                      {log.success ? 'Success' : 'Failed'}
-                    </span>
-                  </td>
+          {logs.length === 0 ? (
+            <div className="text-center py-12 text-gray-400">
+              <FileText className="w-12 h-12 mx-auto mb-2 opacity-50" />
+              <p>No audit logs found</p>
+              <p className="text-sm mt-1">Logs will appear here as actions are performed</p>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead className="bg-gray-900 sticky top-0">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">Time</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">Action</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">User</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">IP</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-700">
+                {logs.map((log) => (
+                  <tr key={log.id} className="hover:bg-gray-700/50">
+                    <td className="px-6 py-4 text-sm text-gray-400">
+                      {new Date(log.created_at).toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4 font-mono text-sm">{log.action}</td>
+                    <td className="px-6 py-4 text-sm">User #{log.user_id}</td>
+                    <td className="px-6 py-4 text-sm font-mono">{log.ip_address}</td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-1 rounded text-xs ${
+                        log.success ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                      }`}>
+                        {log.success ? 'Success' : 'Failed'}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

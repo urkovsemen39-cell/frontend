@@ -109,32 +109,40 @@ export default function OwnerSecurity({ sessionId }: { sessionId: string }) {
           Security Events
         </h3>
         <div className="space-y-2 max-h-96 overflow-y-auto">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg"
-            >
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${getSeverityColor(event.severity)}`}>
-                    {event.severity}
-                  </span>
-                  <span className="font-medium">{event.event_type}</span>
-                </div>
-                <div className="text-sm text-gray-400">
-                  IP: {event.ip_address} • {new Date(event.created_at).toLocaleString()}
-                </div>
-              </div>
-              {!event.resolved && (
-                <button
-                  onClick={() => handleResolveEvent(event.id)}
-                  className="px-3 py-1 bg-green-500/20 text-green-400 rounded hover:bg-green-500/30 text-sm"
-                >
-                  Resolve
-                </button>
-              )}
+          {events.length === 0 ? (
+            <div className="text-center py-8 text-gray-400">
+              <Shield className="w-12 h-12 mx-auto mb-2 opacity-50" />
+              <p>No security events found</p>
+              <p className="text-sm mt-1">All systems operating normally</p>
             </div>
-          ))}
+          ) : (
+            events.map((event) => (
+              <div
+                key={event.id}
+                className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg"
+              >
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${getSeverityColor(event.severity)}`}>
+                      {event.severity}
+                    </span>
+                    <span className="font-medium">{event.event_type}</span>
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    IP: {event.ip_address} • {new Date(event.created_at).toLocaleString()}
+                  </div>
+                </div>
+                {!event.resolved && (
+                  <button
+                    onClick={() => handleResolveEvent(event.id)}
+                    className="px-3 py-1 bg-green-500/20 text-green-400 rounded hover:bg-green-500/30 text-sm"
+                  >
+                    Resolve
+                  </button>
+                )}
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -145,23 +153,30 @@ export default function OwnerSecurity({ sessionId }: { sessionId: string }) {
           Blocked IPs
         </h3>
         <div className="space-y-2">
-          {ipBlocks.map((block) => (
-            <div
-              key={block.id}
-              className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg"
-            >
-              <div>
-                <div className="font-mono">{block.ip_address}</div>
-                <div className="text-sm text-gray-400">{block.reason}</div>
-              </div>
-              <button
-                onClick={() => handleUnblockIP(block.ip_address)}
-                className="px-3 py-1 bg-red-500/20 text-red-400 rounded hover:bg-red-500/30 text-sm"
-              >
-                Unblock
-              </button>
+          {ipBlocks.length === 0 ? (
+            <div className="text-center py-8 text-gray-400">
+              <Ban className="w-12 h-12 mx-auto mb-2 opacity-50" />
+              <p>No blocked IPs</p>
             </div>
-          ))}
+          ) : (
+            ipBlocks.map((block) => (
+              <div
+                key={block.id}
+                className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg"
+              >
+                <div>
+                  <div className="font-mono">{block.ip_address}</div>
+                  <div className="text-sm text-gray-400">{block.reason}</div>
+                </div>
+                <button
+                  onClick={() => handleUnblockIP(block.ip_address)}
+                  className="px-3 py-1 bg-red-500/20 text-red-400 rounded hover:bg-red-500/30 text-sm"
+                >
+                  Unblock
+                </button>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
