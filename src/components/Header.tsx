@@ -24,8 +24,8 @@ export default function Header() {
     router.push('/');
   };
 
-  // Проверка - является ли пользователь админом
-  const isAdmin = user && user.role === 'admin';
+  // Проверка - является ли пользователь админом или owner
+  const isAdmin = user && (user.role === 'admin' || user.role === 'owner');
 
   return (
     <>
