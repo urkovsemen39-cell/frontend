@@ -26,6 +26,8 @@ export default function Home() {
   const loadPopularQueries = async () => {
     try {
       const apiUrl = getApiUrl();
+      console.log('API URL:', apiUrl);
+      console.log('Full URL:', `${apiUrl}/api/v1/analytics/popular-queries?limit=5`);
       const response = await fetch(`${apiUrl}/api/v1/analytics/popular-queries?limit=5`);
       if (response.ok) {
         const data = await response.json();
@@ -58,6 +60,7 @@ export default function Home() {
       });
 
       const apiUrl = getApiUrl();
+      console.log('Search API URL:', apiUrl);
       const token = localStorage.getItem('token');
       const headers: any = {};
       if (token) {
