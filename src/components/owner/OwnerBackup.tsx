@@ -109,6 +109,9 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
         a.click();
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
+        
+        // Обновляем список бэкапов через 2 секунды
+        setTimeout(fetchBackups, 2000);
       } else {
         alert('Failed to create instant backup');
       }
@@ -282,14 +285,15 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
       {/* Backups List */}
       <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-700">
-          <h3 className="text-lg font-semibold">Available Backups</h3>
+          <h3 className="text-lg font-semibold">Backup History</h3>
+          <p className="text-sm text-gray-400 mt-1">Records of downloaded backups (files are not stored on server)</p>
         </div>
         
         {backups.length === 0 ? (
           <div className="p-12 text-center text-gray-400">
             <Database className="w-16 h-16 mx-auto mb-4 opacity-50" />
-            <p>No backups yet</p>
-            <p className="text-sm mt-2">Create your first backup to get started</p>
+            <p>No backup history yet</p>
+            <p className="text-sm mt-2">Download your first backup to see it here</p>
           </div>
         ) : (
           <div className="divide-y divide-gray-700">
@@ -303,8 +307,8 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
                     <div className="flex items-center gap-3 mb-2">
                       <FileArchive className="w-5 h-5 text-purple-400" />
                       <span className="font-medium">{backup.filename}</span>
-                      <span className="px-2 py-1 bg-gray-700 rounded text-xs">
-                        {formatSize(backup.size)}
+                      <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">
+                        Downloaded
                       </span>
                     </div>
                     <div className="flex items-center gap-4 text-sm text-gray-400">
@@ -316,22 +320,6 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
                         Components: {backup.components.join(', ')}
                       </span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => handleDownloadBackup(backup.id, backup.filename)}
-                      className="p-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors"
-                      title="Download"
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteBackup(backup.id)}
-                      className="p-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   </div>
                 </div>
               </div>
