@@ -86,6 +86,40 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
     }
   };
 
+  const handleInstantBackup = async () => {
+    setCreating(true);
+    try {
+      const response = await fetch(
+        `${getApiUrl()}/api/v1/owner/backup/instant`,
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'X-Owner-Session': sessionId,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `smartprice-backup-${new Date().toISOString().split('T')[0]}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        alert('Failed to create instant backup');
+      }
+    } catch (error) {
+      console.error('Error creating instant backup:', error);
+      alert('Failed to create instant backup');
+    } finally {
+      setCreating(false);
+    }
+  };
+
   const handleDownloadBackup = async (backupId: string, filename: string) => {
     try {
       const response = await fetch(
@@ -175,6 +209,14 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
           >
             <RefreshCw className="w-4 h-4" />
             Refresh
+          </button>
+          <button
+            onClick={handleInstantBackup}
+            disabled={creating}
+            className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:shadow-lg rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
+          >
+            <Download className="w-4 h-4" />
+            {creating ? 'Creating...' : 'Instant Download'}
           </button>
           <button
             onClick={handleCreateBackup}
