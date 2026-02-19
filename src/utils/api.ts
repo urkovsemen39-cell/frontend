@@ -16,10 +16,17 @@ class ApiClient {
   }
 
   private getHeaders(options?: FetchOptions): HeadersInit {
-    const headers: HeadersInit = {
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...options?.headers,
     };
+
+    if (options?.headers) {
+      Object.entries(options.headers).forEach(([key, value]) => {
+        if (typeof value === 'string') {
+          headers[key] = value;
+        }
+      });
+    }
 
     if (options?.requireAuth !== false) {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;

@@ -11,11 +11,7 @@ const nextConfig = {
     ],
   },
   env: {
-    NEXT_PUBLIC_API_URL: 'https://smartprice-production.up.railway.app',
-  },
-  // Добавляем переменные окружения в runtime
-  publicRuntimeConfig: {
-    NEXT_PUBLIC_API_URL: 'https://smartprice-production.up.railway.app',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://smartprice-production.up.railway.app',
   },
   turbopack: {},
   // Security headers
