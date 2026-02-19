@@ -213,18 +213,10 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
           <button
             onClick={handleInstantBackup}
             disabled={creating}
-            className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:shadow-lg rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
+            className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:shadow-lg rounded-lg flex items-center gap-2 transition-all disabled:opacity-50 text-lg font-semibold"
           >
-            <Download className="w-4 h-4" />
-            {creating ? 'Creating...' : 'Instant Download'}
-          </button>
-          <button
-            onClick={handleCreateBackup}
-            disabled={creating}
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:shadow-lg rounded-lg flex items-center gap-2 transition-all disabled:opacity-50"
-          >
-            <Database className="w-4 h-4" />
-            {creating ? 'Creating...' : 'Create Backup'}
+            <Download className="w-5 h-5" />
+            {creating ? 'Creating Backup...' : 'Download Full Backup'}
           </button>
         </div>
       </div>
@@ -349,17 +341,18 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
       </div>
 
       {/* Warning */}
-      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4">
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
         <div className="flex items-start gap-3">
-          <span className="text-2xl">⚠️</span>
+          <span className="text-2xl">ℹ️</span>
           <div className="flex-1">
-            <h4 className="font-semibold text-yellow-400 mb-1">Important Notes</h4>
+            <h4 className="font-semibold text-blue-400 mb-1">Instant Backup Information</h4>
             <ul className="text-sm text-gray-300 space-y-1">
-              <li>• Backups are stored on the server and count towards storage limits</li>
-              <li>• Maximum 10 backups are kept automatically (oldest are deleted)</li>
-              <li>• Download backups to local storage for long-term archival</li>
-              <li>• Backup process may take 1-5 minutes depending on data size</li>
+              <li>• Backup is created in memory and downloaded immediately</li>
+              <li>• No storage limits - backup is not saved on server</li>
+              <li>• Includes: Full database, Redis data, schema, and configuration</li>
               <li>• Secrets (passwords, API keys) are NOT included for security</li>
+              <li>• Download takes 10-30 seconds depending on data size</li>
+              <li>• Save backup file to secure location for disaster recovery</li>
             </ul>
           </div>
         </div>
