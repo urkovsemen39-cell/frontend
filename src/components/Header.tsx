@@ -24,8 +24,8 @@ export default function Header() {
     router.push('/');
   };
 
-  // Проверка - является ли пользователь админом или owner
-  const isAdmin = user && (user.role === 'admin' || user.role === 'owner');
+  // Проверка - является ли пользователь owner
+  const isOwner = user && user.role === 'owner';
 
   return (
     <>
@@ -52,8 +52,8 @@ export default function Header() {
                     Отслеживание цен
                   </Link>
                   
-                  {/* Кнопка админки - видна только для admin */}
-                  {isAdmin && (
+                  {/* Кнопка админки - видна только для owner */}
+                  {isOwner && (
                     <button
                       onClick={() => setShowOwnerPanel(true)}
                       className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors font-medium"
