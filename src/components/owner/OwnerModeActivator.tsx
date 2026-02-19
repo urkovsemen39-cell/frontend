@@ -26,9 +26,12 @@ export default function OwnerModeActivator() {
         const newPresses = [...recentPresses, now];
         
         setKeyPresses(newPresses);
+        
+        console.log(`Owner mode activation: ${newPresses.length}/3 presses`);
 
         // Если нажато 3 раза за 2 секунды - активируем
         if (newPresses.length >= 3) {
+          console.log('Owner mode activated!');
           setIsActive(true);
           setKeyPresses([]);
         }
