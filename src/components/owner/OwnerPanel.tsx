@@ -75,7 +75,7 @@ export default function OwnerPanel({ onClose }: OwnerPanelProps) {
         await fetch(`${getApiUrl()}/api/v1/owner/deactivate`, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         });

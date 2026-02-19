@@ -35,7 +35,7 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/backup/list`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -65,7 +65,7 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -92,7 +92,7 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/backup/download/${backupId}`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -128,7 +128,7 @@ export default function OwnerBackup({ sessionId }: { sessionId: string }) {
         {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }

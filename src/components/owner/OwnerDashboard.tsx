@@ -51,7 +51,7 @@ export default function OwnerDashboard({ sessionId }: OwnerDashboardProps) {
     try {
       const response = await fetch(`${getApiUrl()}/api/v1/owner/dashboard`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'X-Owner-Session': sessionId,
         },
       });
@@ -71,7 +71,7 @@ export default function OwnerDashboard({ sessionId }: OwnerDashboardProps) {
     try {
       const response = await fetch(`${getApiUrl()}/api/v1/owner/realtime/stats`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'X-Owner-Session': sessionId,
         },
       });

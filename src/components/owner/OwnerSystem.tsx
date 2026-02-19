@@ -19,7 +19,7 @@ export default function OwnerSystem({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/system/metrics`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -41,7 +41,7 @@ export default function OwnerSystem({ sessionId }: { sessionId: string }) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
           body: JSON.stringify({ pattern }),

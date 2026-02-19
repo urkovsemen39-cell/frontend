@@ -19,7 +19,7 @@ export default function OwnerSecurity({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/security/events?limit=50`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -39,7 +39,7 @@ export default function OwnerSecurity({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/security/ip-blocks`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -60,7 +60,7 @@ export default function OwnerSecurity({ sessionId }: { sessionId: string }) {
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -78,7 +78,7 @@ export default function OwnerSecurity({ sessionId }: { sessionId: string }) {
         {
           method: 'DELETE',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }

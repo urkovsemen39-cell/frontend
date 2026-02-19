@@ -24,7 +24,7 @@ export default function OwnerLogs({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/audit/logs?${params}`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }

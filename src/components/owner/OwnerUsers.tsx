@@ -37,7 +37,7 @@ export default function OwnerUsers({ sessionId }: { sessionId: string }) {
         `${getApiUrl()}/api/v1/owner/users?${params}`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
         }
@@ -63,7 +63,7 @@ export default function OwnerUsers({ sessionId }: { sessionId: string }) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
           body: JSON.stringify({
@@ -89,7 +89,7 @@ export default function OwnerUsers({ sessionId }: { sessionId: string }) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'X-Owner-Session': sessionId,
           },
           body: JSON.stringify({ role }),
